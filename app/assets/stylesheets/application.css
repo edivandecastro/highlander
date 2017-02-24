@@ -12,4 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= require fullcalendar.min.css
+ *= require animate.min.css
+ *= require sweetalert2.min.css
+ *= require material-design-iconic-font.min.css
+ *= require jquery.mCustomScrollbar.min.css
+ *= require bootstrap-select.min.css
+ *= require bootstrap-datetimepicker.min.css
  */

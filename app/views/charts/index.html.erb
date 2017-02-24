@@ -1,19 +1,180 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
+  <div class="card-header">
+    <h2>Configuração do Gráfico de Barra Simples
+      <small>Informe dados referentes a exibição do gráfico</small>
+    </h2>
+  </div>
 
-<h1>Charts</h1>
+  <div class="card-body card-padding">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Título do Gráfico">
+          </div>
+        </div>
+      </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Column</th>
-      <th>Chart</th>
-      <th>Xaxis</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  </tbody>
-</table>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Subtítulo do Gráfico">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Título da escala">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Valor Mínimo da escala">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <button class="btn btn-success waves-effect">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<br>
+<div class="card">
+  <div class="card-header">
+    <h2>Serviço de Pesquisa
+      <small>Informe a fonte de pesquisa dos dados do gráfico</small>
+    </h2>
+  </div>
 
-<%= link_to 'New Chart', new_chart_path %>
+  <div class="card-body card-padding">
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <select class="selectpicker">
+          <option>GET</option>
+        </select>
+      </div>
+
+      <div class="col-sm-3 m-b-25">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Informe a URL de requisição">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 m-b-25">
+        <button class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="right"  title="" data-original-title="Adiciona parametros para a URL">
+          <i class="zmdi zmdi-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Chave">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 m-b-25">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Valor">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 m-b-25">
+        <button class="btn btn-danger waves-effect">
+          <i class="zmdi zmdi-minus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <button class="btn btn-success waves-effect">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Agendamento do Serviço de Pesquisa
+      <small>Informe o momento para ativar o serviço de pesquisa dos dados do gráfico</small>
+    </h2>
+  </div>
+
+  <div class="card-body card-padding">
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <select class="selectpicker">
+          <option>Executar o serviço em:</option>
+          <option>Executar o serviço a cada:</option>
+          <option>Executar o serviço no/às:</option>
+        </select>
+      </div>
+
+      <div class="col-sm-3 m-b-25">
+        <button class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="right"  title="" data-original-title="Adiciona parametros para a URL">
+          <i class="zmdi zmdi-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Quantidade">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 m-b-25">
+        <select class="selectpicker">
+          <option>segundo(s)</option>
+          <option>minuto(s)</option>
+          <option>hora(s)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <div class="input-group form-group">
+          <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+          <div class="dtp-container">
+            <input type='text' class="form-control date-time-picker" placeholder="Clique aqui...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <div class="input-group form-group">
+          <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+          <div class="dtp-container">
+            <input type='text' class="form-control time-picker" placeholder="Clique aqui...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <button class="btn btn-success waves-effect">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

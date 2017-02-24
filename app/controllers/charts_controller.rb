@@ -1,11 +1,22 @@
 class ChartsController < ApplicationController
 
   def index
-    binding.pry
-    Sidekiq.set_schedule('hardworker', { every: ['10s'], class: 'HardWorker', args: ['legal'] })
-    # Sidekiq.set_schedule('hardworker2', { 'every' => ['2m'], 'class' => 'HardWorker' })
-    # HardWorker.perform_async("bob", 5)
-    # HardWorker.perform_in(2.minutes, "jack", 2)
-    # HardWorker.perform_at(1.minutes, "jack", 1)
+    #binding.pry
+    # Opções:
+    # 1 - Executar o serviço em:
+    # 2 - Executar o serviço a cada;
+    # 3 - Executar o serviço no/às
+    # Executa o serviço apenas uma vez em 10 segundos
+    # Sidekiq.set_schedule('hardworker', { in: ['10s'], class: 'HardWorker', args: ['legal'] })
+
+    # Executa o serviço a cada 10 segundos
+    # Sidekiq.set_schedule('hardworker', { every: ['10s'], class: 'HardWorker', args: ['a cada 10s'] })
+
+    # Executa o serviço em determinado dia e horário ou serviçoomente em determinado horário
+    # Sidekiq.set_schedule('hardworker', { at: ['2017/02/28 16:08:40 America/Sao_Paulo'], class: 'HardWorker', args: ['a cada 10s'] })
+    # Sidekiq.set_schedule('hardworker1', { at: ['17:56:00'], class: 'HardWorker', args: ['a cada 10s'] })
+
+    # Executa o serviço mensalmente
+    # Sidekiq.set_schedule('hardworker1', { cron: ['59 23 L * * America/Sao_Paulo'], class: 'HardWorker', args: ['cron 10s'] })
   end
 end
