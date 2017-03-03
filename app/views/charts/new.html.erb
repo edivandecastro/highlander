@@ -1,0 +1,183 @@
+<%= form_for @chart do |f| %>
+  <div class="card">
+    <div class="card-header">
+      <h2>Configuração do Gráfico de Barra Simples
+        <small>Informe dados referentes a exibição do gráfico</small>
+      </h2>
+    </div>
+    <div class="card-body card-padding">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <%= f.text_field :title, class: "form-control", placeholder: "Título do Gráfico" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <%= f.text_field :subtitle, class: "form-control", placeholder: "Subtítulo do Gráfico" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <%= f.text_field :scale, class: "form-control", placeholder: "Título da escala" %>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <%= f.text_field :min_value, class: "form-control", placeholder: "Valor Mínimo da escala" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <button class="btn btn-success waves-effect">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>Serviço de Pesquisa
+        <small>Informe a fonte de pesquisa dos dados do gráfico</small>
+      </h2>
+    </div>
+
+    <div class="card-body card-padding">
+      <div class="row">
+        <div class="col-sm-3 m-b-25">
+          <%= f.select :http_method, @http_methods, {}, { class: "selectpicker" } %>
+        </div>
+
+        <div class="col-sm-3 m-b-25">
+          <div class="form-group">
+            <div class="fg-line">
+              <%= f.text_field :url, class: "form-control", placeholder: "Informe a URL de requisição" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3 m-b-25">
+          <button class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="right"
+            title="" data-original-title="Adiciona parametros para a URL">
+            <i class="zmdi zmdi-plus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-3 m-b-25">
+          <div class="form-group">
+            <div class="fg-line">
+              <%= text_field_tag :key, nil, class: "form-control", placeholder: "Chave", name: "url[1][key]" %>
+              <%= text_field_tag :key, nil, class: "form-control", placeholder: "Chave", name: "url[2][key]" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3 m-b-25">
+          <div class="form-group">
+            <div class="fg-line">
+              <%= text_field_tag :value, nil, class: "form-control", placeholder: "Valor", name: "url[1][value]" %>
+              <%= text_field_tag :value, nil, class: "form-control", placeholder: "Valor", name: "url[2][value]" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3 m-b-25">
+          <button class="btn btn-danger waves-effect">
+            <i class="zmdi zmdi-minus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <button class="btn btn-success waves-effect">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="card">
+  <div class="card-header">
+    <h2>Agendamento do Serviço de Pesquisa
+      <small>Informe o momento para ativar o serviço de pesquisa dos dados do gráfico</small>
+    </h2>
+  </div>
+
+  <div class="card-body card-padding">
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <select class="selectpicker">
+          <option>Executar o serviço em:</option>
+          <option>Executar o serviço a cada:</option>
+          <option>Executar o serviço no/às:</option>
+        </select>
+      </div>
+
+      <div class="col-sm-3 m-b-25">
+        <button class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="right"  title=""
+          data-original-title="Adiciona parametros para a URL">
+          <i class="zmdi zmdi-plus"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <div class="form-group">
+          <div class="fg-line">
+            <input type="text" class="form-control" placeholder="Quantidade">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 m-b-25">
+        <select class="selectpicker">
+          <option>segundo(s)</option>
+          <option>minuto(s)</option>
+          <option>hora(s)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <div class="input-group form-group">
+          <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+          <div class="dtp-container">
+            <input type='text' class="form-control date-time-picker" placeholder="Clique aqui...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3 m-b-25">
+        <div class="input-group form-group">
+          <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+          <div class="dtp-container">
+            <input type='text' class="form-control time-picker" placeholder="Clique aqui...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <button class="btn btn-success waves-effect">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

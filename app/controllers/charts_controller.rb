@@ -19,4 +19,13 @@ class ChartsController < ApplicationController
     # Executa o serviço mensalmente
     # Sidekiq.set_schedule('hardworker1', { cron: ['59 23 L * * America/Sao_Paulo'], class: 'HardWorker', args: ['cron 10s'] })
   end
+
+  def new
+    @chart = Chart.new(title: nil, subtitle: nil, scale: nil, min_value: nil, http_method: nil, url: nil)
+    @http_methods = OptionsSelect.find_by(name: "http_method").values
+  end
+
+  def create
+    binding.pry
+  end
 end
