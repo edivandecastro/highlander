@@ -1,7 +1,6 @@
 class ChartsController < ApplicationController
 
   def index
-    #binding.pry
     # Opções:
     # 1 - Executar o serviço em:
     # 2 - Executar o serviço a cada;
@@ -27,5 +26,12 @@ class ChartsController < ApplicationController
 
   def create
     binding.pry
+  end
+
+  def add_params
+    @id = Time.new.to_f.to_s.gsub(".", "")
+    respond_to do |format|
+      format.js
+    end
   end
 end

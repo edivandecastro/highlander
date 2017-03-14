@@ -20,7 +20,6 @@
 //= require curvedLines.js
 //= require jquery.sparkline.min.js
 //= require jquery.easypiechart.min.js
-//= require fullcalendar.min.js
 //= require jquery.simpleWeather.min.js
 //= require jquery.mCustomScrollbar.concat.min.js
 //= require waves.min.js
@@ -29,5 +28,4 @@
 //= require moment.min.js
 //= require bootstrap-select.min.js
 //= require bootstrap-datetimepicker.min.js
-//= require app.js
 //= require_tree .

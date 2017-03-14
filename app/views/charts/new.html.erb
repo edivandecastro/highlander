@@ -69,37 +69,15 @@
         </div>
 
         <div class="col-sm-3 m-b-25">
-          <button class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="right"
-            title="" data-original-title="Adiciona parametros para a URL">
+          <button id="btn-add-params" class="btn btn-success waves-effect" type="button" data-toggle="tooltip"
+            data-placement="right" title="" data-original-title="Adiciona parametros para a URL">
             <i class="zmdi zmdi-plus"></i>
           </button>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-3 m-b-25">
-          <div class="form-group">
-            <div class="fg-line">
-              <%= text_field_tag :key, nil, class: "form-control", placeholder: "Chave", name: "url[1][key]" %>
-              <%= text_field_tag :key, nil, class: "form-control", placeholder: "Chave", name: "url[2][key]" %>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-sm-3 m-b-25">
-          <div class="form-group">
-            <div class="fg-line">
-              <%= text_field_tag :value, nil, class: "form-control", placeholder: "Valor", name: "url[1][value]" %>
-              <%= text_field_tag :value, nil, class: "form-control", placeholder: "Valor", name: "url[2][value]" %>
-            </div>
-          </div>
-        </div>
+      <div id="fields_params_url"></div>
 
-        <div class="col-sm-3 m-b-25">
-          <button class="btn btn-danger waves-effect">
-            <i class="zmdi zmdi-minus"></i>
-          </button>
-        </div>
-      </div>
       <div class="row">
         <div class="col-sm-4">
           <button class="btn btn-success waves-effect">Salvar</button>

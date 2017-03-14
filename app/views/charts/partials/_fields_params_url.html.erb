@@ -1,0 +1,26 @@
+<%= javascript_include_tag "remove_row_param.js", "data-turbolinks-track" => true %>
+
+<div id="<%= id %>" class="row" identify="row-param" >
+  <div class="col-sm-3 m-b-25">
+    <div class="form-group">
+      <div class="fg-line">
+        <%= text_field_tag :key, nil, class: "form-control", placeholder: "Chave", name: "url[#{id}][key]" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-3 m-b-25">
+    <div class="form-group">
+      <div class="fg-line">
+        <%= text_field_tag :value, nil, class: "form-control", placeholder: "Valor", name: "url[#{id}][value]" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-3 m-b-25">
+    <button name="remove-params" class="btn btn-danger waves-effect" type="button" row="<%= id %>">
+      <i class="zmdi zmdi-minus"></i>
+    </button>
+  </div>
+</div>
+
