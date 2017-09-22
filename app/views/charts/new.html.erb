@@ -1,4 +1,8 @@
-<%= form_for @chart do |f| %>
+<%= hidden_field_tag :create, charts_path %>
+<%= hidden_field_tag :route_update_search_service, update_search_service_charts_path %>
+
+<%= form_for @chart, url: '#' do |f| %>
+
   <div class="card">
     <div class="card-header">
       <h2>Configuração do Gráfico de Barra Simples
@@ -41,11 +45,15 @@
       </div>
       <div class="row">
         <div class="col-sm-4">
-          <button class="btn btn-success waves-effect">Salvar</button>
+          <button id="button-save-chart" class="btn btn-success waves-effect">Salvar</button>
         </div>
       </div>
     </div>
   </div>
+<% end %>
+
+<%= form_tag update_search_service_charts_path, id: 'update_search_service' do |f| %>
+  <%= hidden_field_tag :id, nil %>
 
   <div class="card">
     <div class="card-header">
@@ -57,13 +65,15 @@
     <div class="card-body card-padding">
       <div class="row">
         <div class="col-sm-3 m-b-25">
-          <%= f.select :http_method, @http_methods, {}, { class: "selectpicker" } %>
+          <%= select :options_select, :http_method, @http_methods, {},
+            { class: "selectpicker", name: "service[http_methods]" } %>
         </div>
 
         <div class="col-sm-3 m-b-25">
           <div class="form-group">
             <div class="fg-line">
-              <%= f.text_field :url, class: "form-control", placeholder: "Informe a URL de requisição" %>
+              <%= text_field_tag :url, nil, class: "form-control", name: "service[url]",
+                placeholder: "Informe a URL de requisição" %>
             </div>
           </div>
         </div>
@@ -80,7 +90,7 @@
 
       <div class="row">
         <div class="col-sm-4">
-          <button class="btn btn-success waves-effect">Salvar</button>
+          <button id="button-update-search-service" class="btn btn-success waves-effect">Salvar</button>
         </div>
       </div>
     </div>
