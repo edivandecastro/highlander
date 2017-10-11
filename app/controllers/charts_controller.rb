@@ -22,6 +22,7 @@ class ChartsController < ApplicationController
   def new
     @chart = Chart.new(title: nil, subtitle: nil, scale: nil, min_value: nil, http_method: nil, url: nil)
     @http_methods = OptionsSelect.find_by(name: "http_method").values
+    @type_run_services = OptionsSelect.find_by(name: "type_run_service").values
   end
 
   def create
@@ -34,10 +35,25 @@ class ChartsController < ApplicationController
   end
 
   def update_search_service
-    binding.pry
-    http_method = params[:options_select][:http_method] if params.key? :options_select
-    service_hash = { http_method: http_method, url: params[:url] }
-    Chart.where(id: params[:id]).update(service: service_hash) if http_method && params[:url]
+    http_method = params[:service][:http_method] if params.key? :service
+    parameters = []
+    if params[:service].has_key? :params
+      params[:service][:params].values.each { |param| parameters.push({ param["key"] => param["value"] }) }
+    end
+    service_hash = { http_method: http_method, url: params[:service][:url] }
+    service_hash.store(:params, parameters) if parameters.any?
+    Chart.where(id: params[:id]).update(service: service_hash) if http_method && params[:service][:url]
+  end
+
+  def update_schedule_service
+  end
+
+  def inputs_type_run_service
+    if params["type"] == "at"
+      render partial: "charts/partials/inputs_at"
+    else
+      render partial: "charts/partials/inputs_in_every"
+    end
   end
 
   def add_params

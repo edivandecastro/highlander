@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     collection do
       get :add_params
       post :update_search_service
+      post :update_schedule_service
+      get :inputs_type_run_service
     end
   end
 

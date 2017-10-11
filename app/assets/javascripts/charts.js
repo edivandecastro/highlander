@@ -15,6 +15,7 @@ $( document ).ready(function() {
       data: $('#new_chart').serialize(),
       success: function(data, textStatus, jqXHR) {
         $('#id').val(data.id);
+        $('#button-update-search-service').hide();
       },
       typeData: 'json'
     });
@@ -22,7 +23,7 @@ $( document ).ready(function() {
     e.preventDefault();
   });
 
-  $('#button-update-search-service').click( function(e) {
+  $('#button-update-search-service').on('click', function(e) {
     $.post({
       url: $('#route_update_search_service').val(),
       data: $('#update_search_service').serialize(),
@@ -33,5 +34,19 @@ $( document ).ready(function() {
     });
 
     e.preventDefault();
+  });
+
+  $('#options_select_type_run_service').on('change', function(e) {
+    $.get({
+      url: $('#route_inputs_type_run_service').val(),
+      data: { type: $(this).val() },
+      success: function(data, textStatus, jqXHR) {
+        console.log(data);
+      }
+    });
+  });
+
+  $('.selectpicker').selectpicker({
+    width: 250
   });
 });

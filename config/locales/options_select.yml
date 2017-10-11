@@ -1,0 +1,7 @@
+pt-BR:
+  options_select:
+    type_run_service:
+      label: "Executar o serviço %{t}"
+      in: "em"
+      every: "a cada"
+      at: "no/às"

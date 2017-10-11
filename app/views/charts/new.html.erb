@@ -1,5 +1,6 @@
 <%= hidden_field_tag :create, charts_path %>
 <%= hidden_field_tag :route_update_search_service, update_search_service_charts_path %>
+<%= hidden_field_tag :route_inputs_type_run_service, inputs_type_run_service_charts_path %>
 
 <%= form_for @chart, url: '#' do |f| %>
 
@@ -66,7 +67,7 @@
       <div class="row">
         <div class="col-sm-3 m-b-25">
           <%= select :options_select, :http_method, @http_methods, {},
-            { class: "selectpicker", name: "service[http_methods]" } %>
+            { class: "selectpicker", name: "service[http_method]" } %>
         </div>
 
         <div class="col-sm-3 m-b-25">
@@ -90,82 +91,65 @@
 
       <div class="row">
         <div class="col-sm-4">
-          <button id="button-update-search-service" class="btn btn-success waves-effect">Salvar</button>
+          <button id="button-update-search-service" class="btn btn-success waves-effect" style="display: none;">
+            Salvar
+          </button>
         </div>
       </div>
     </div>
   </div>
 <% end %>
 
-<div class="card">
-  <div class="card-header">
-    <h2>Agendamento do Serviço de Pesquisa
-      <small>Informe o momento para ativar o serviço de pesquisa dos dados do gráfico</small>
-    </h2>
-  </div>
-
-  <div class="card-body card-padding">
-    <div class="row">
-      <div class="col-sm-3 m-b-25">
-        <select class="selectpicker">
-          <option>Executar o serviço em:</option>
-          <option>Executar o serviço a cada:</option>
-          <option>Executar o serviço no/às:</option>
-        </select>
-      </div>
-
-      <div class="col-sm-3 m-b-25">
-        <button class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="right"  title=""
-          data-original-title="Adiciona parametros para a URL">
-          <i class="zmdi zmdi-plus"></i>
-        </button>
-      </div>
+<%= form_tag update_schedule_service_charts_path, id: 'update_schedule_service' do |f| %>
+  <div class="card">
+    <div class="card-header">
+      <h2>Agendamento do Serviço de Pesquisa
+        <small>Informe o momento para ativar o serviço de pesquisa dos dados do gráfico</small>
+      </h2>
     </div>
 
-    <div class="row">
-      <div class="col-sm-3 m-b-25">
-        <div class="form-group">
-          <div class="fg-line">
-            <input type="text" class="form-control" placeholder="Quantidade">
+    <div class="card-body card-padding">
+      <div class="row">
+        <div class="col-sm-3 m-b-25">
+          <%= select :options_select, :type_run_service, options_type_run_service(@type_run_services), {},
+              { class: "selectpicker", name: "service[type_run_service]" } %>
+        </div>
+
+        <div class="col-sm-3 m-b-25">
+          <button class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="right"  title=""
+            data-original-title="Adiciona parametros para a URL">
+            <i class="zmdi zmdi-plus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3 m-b-25">
+          <div class="input-group form-group">
+            <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+            <div class="dtp-container">
+              <input type='text' class="form-control date-time-picker" placeholder="Clique aqui...">
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-sm-3 m-b-25">
-        <select class="selectpicker">
-          <option>segundo(s)</option>
-          <option>minuto(s)</option>
-          <option>hora(s)</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-3 m-b-25">
-        <div class="input-group form-group">
-          <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
-          <div class="dtp-container">
-            <input type='text' class="form-control date-time-picker" placeholder="Clique aqui...">
+      <div class="row">
+        <div class="col-sm-3 m-b-25">
+          <div class="input-group form-group">
+            <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+            <div class="dtp-container">
+              <input type='text' class="form-control time-picker" placeholder="Clique aqui...">
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-3 m-b-25">
-        <div class="input-group form-group">
-          <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
-          <div class="dtp-container">
-            <input type='text' class="form-control time-picker" placeholder="Clique aqui...">
-          </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <button class="btn btn-success waves-effect">Salvar</button>
         </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-3">
-        <button class="btn btn-success waves-effect">Salvar</button>
       </div>
     </div>
   </div>
-</div>
+<% end %>
