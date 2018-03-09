@@ -26,6 +26,7 @@ class ChartsController < ApplicationController
   end
 
   def create
+    binding.pry
     @chart = Chart.new(chart_params)
     @chart.save
 
@@ -37,15 +38,26 @@ class ChartsController < ApplicationController
   def update_search_service
     http_method = params[:service][:http_method] if params.key? :service
     parameters = []
-    if params[:service].has_key? :params
+    if params.key?(:service) && params[:service].key?(:params)
       params[:service][:params].values.each { |param| parameters.push({ param["key"] => param["value"] }) }
     end
     service_hash = { http_method: http_method, url: params[:service][:url] }
     service_hash.store(:params, parameters) if parameters.any?
-    Chart.where(id: params[:id]).update(service: service_hash) if http_method && params[:service][:url]
+    service = Service.new(service_hash)
+    Chart.where(id: params[:id]).last.update(service: service) if http_method && params[:service][:url]
   end
 
   def update_schedule_service
+    type_run_service = params[:service][:type_run_service] if params.key? :service
+    if type_run_service
+      case type_run_service
+      when "in"
+        hash_service = Chart.find(params[:id]).service.to_hash
+        hash_service.store("type_run_service", params[:service][:type_run_service])
+        hash_service.store("date", params[:service][:date])
+        Chart.where(id: params[:id]).update(service: hash_service)
+      end
+    end
   end
 
   def inputs_type_run_service
@@ -56,21 +68,21 @@ class ChartsController < ApplicationController
     end
   end
 
-  def add_params
-    @id = Time.new.to_f.to_s.gsub(".", "")
-    respond_to do |format|
-      format.js
-    end
-  end
+  private
 
   def chart_params
     params.require(:chart).permit(
       :title,
       :subtitle,
-      :subtitulo,
       :scale,
-      :titulo,
-      :min_value
-    )
+      :min_value,
+      service: [
+        :http_method,
+        :url
+      ]
+    ).tap do |whitelisted|
+      whitelisted[:service][:query_strings_attributes] = params[:chart][:service][:query_strings_attributes].permit!
+      whitelisted[:service][:schedule] = params[:chart][:service][:schedule].permit!
+    end
   end
 end

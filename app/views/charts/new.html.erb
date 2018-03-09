@@ -1,6 +1,6 @@
 <%= hidden_field_tag :create, charts_path %>
 <%= hidden_field_tag :route_update_search_service, update_search_service_charts_path %>
-<%= hidden_field_tag :route_inputs_type_run_service, inputs_type_run_service_charts_path %>
+<%= hidden_field_tag :route_update_schedule_service, update_schedule_service_charts_path %>
 
 <%= form_for @chart, url: '#' do |f| %>
 
@@ -44,112 +44,128 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <button id="button-save-chart" class="btn btn-success waves-effect">Salvar</button>
-        </div>
-      </div>
     </div>
   </div>
-<% end %>
 
-<%= form_tag update_search_service_charts_path, id: 'update_search_service' do |f| %>
-  <%= hidden_field_tag :id, nil %>
+  <%= f.fields_for :service do |s| %>
+    <%= hidden_field_tag :id, nil, class: "chart_id" %>
+    <div class="card">
+      <div class="card-header">
+        <h2>Serviço de Pesquisa
+          <small>Informe a fonte de pesquisa dos dados do gráfico</small>
+        </h2>
+      </div>
 
-  <div class="card">
-    <div class="card-header">
-      <h2>Serviço de Pesquisa
-        <small>Informe a fonte de pesquisa dos dados do gráfico</small>
-      </h2>
-    </div>
+      <div class="card-body card-padding">
+        <div class="row">
+          <div class="col-sm-3 m-b-25">
+            <%= s.select :http_method, @http_methods, {}, { class: "selectpicker" } %>
+          </div>
 
-    <div class="card-body card-padding">
-      <div class="row">
-        <div class="col-sm-3 m-b-25">
-          <%= select :options_select, :http_method, @http_methods, {},
-            { class: "selectpicker", name: "service[http_method]" } %>
-        </div>
-
-        <div class="col-sm-3 m-b-25">
-          <div class="form-group">
-            <div class="fg-line">
-              <%= text_field_tag :url, nil, class: "form-control", name: "service[url]",
-                placeholder: "Informe a URL de requisição" %>
+          <div class="col-sm-3 m-b-25">
+            <div class="form-group">
+              <div class="fg-line">
+                <%= s.text_field :url, class: "form-control", placeholder: "Informe a URL de requisição" %>
+              </div>
             </div>
+          </div>
+
+          <div class="col-sm-3 m-b-25">
+            <button id="btn-add-params" class="btn btn-success waves-effect" type="button" data-toggle="tooltip"
+              data-placement="right" title="" data-original-title="Adiciona parametros para a URL">
+              <i class="zmdi zmdi-plus"></i>
+            </button>
           </div>
         </div>
 
-        <div class="col-sm-3 m-b-25">
-          <button id="btn-add-params" class="btn btn-success waves-effect" type="button" data-toggle="tooltip"
-            data-placement="right" title="" data-original-title="Adiciona parametros para a URL">
-            <i class="zmdi zmdi-plus"></i>
-          </button>
-        </div>
-      </div>
+        <%= s.fields_for :query_strings  do |ks| %>
+          <script id="fields-params" type="text/x-handlebars-template">
+            <div id="{{ id }}" class="row" identify="row-param" >
+              <div class="col-sm-3 m-b-25">
+                <div class="form-group">
+                  <div class="fg-line">
+                    <%= ks.text_field :key, class: "form-control", placeholder: "Chave",
+                      name: "chart[service][query_strings_attributes][{{ id }}][key]" %>
+                  </div>
+                </div>
+              </div>
 
-      <div id="fields_params_url"></div>
+              <div class="col-sm-3 m-b-25">
+                <div class="form-group">
+                  <div class="fg-line">
+                    <%= text_field_tag :value, nil, class: "form-control", placeholder: "Valor",
+                      name: "chart[service][query_strings_attributes][{{ id }}][value]" %>
+                  </div>
+                </div>
+              </div>
 
-      <div class="row">
-        <div class="col-sm-4">
-          <button id="button-update-search-service" class="btn btn-success waves-effect" style="display: none;">
-            Salvar
-          </button>
-        </div>
+              <div class="col-sm-3 m-b-25">
+                <button name="remove-params" class="btn btn-danger waves-effect" type="button" row="{{ id }}">
+                  <i class="zmdi zmdi-minus"></i>
+                </button>
+              </div>
+            </div>
+          </script>
+          <div id="fields_params_url"></div>
+        <% end %>
+
       </div>
     </div>
-  </div>
-<% end %>
 
-<%= form_tag update_schedule_service_charts_path, id: 'update_schedule_service' do |f| %>
-  <div class="card">
-    <div class="card-header">
-      <h2>Agendamento do Serviço de Pesquisa
-        <small>Informe o momento para ativar o serviço de pesquisa dos dados do gráfico</small>
-      </h2>
-    </div>
-
-    <div class="card-body card-padding">
-      <div class="row">
-        <div class="col-sm-3 m-b-25">
-          <%= select :options_select, :type_run_service, options_type_run_service(@type_run_services), {},
-              { class: "selectpicker", name: "service[type_run_service]" } %>
+    <%= s.fields_for :schedule do |k| %>
+      <div class="card">
+        <div class="card-header">
+          <h2>Agendamento do Serviço de Pesquisa
+            <small>Informe o momento para ativar o serviço de pesquisa dos dados do gráfico</small>
+          </h2>
         </div>
 
-        <div class="col-sm-3 m-b-25">
-          <button class="btn btn-success waves-effect" data-toggle="tooltip" data-placement="right"  title=""
-            data-original-title="Adiciona parametros para a URL">
-            <i class="zmdi zmdi-plus"></i>
-          </button>
-        </div>
-      </div>
+        <div class="card-body card-padding">
+          <div class="row">
+            <div class="col-sm-3 m-b-25">
+              <%= k.select :type_run_service, options_type_run_service(@type_run_services), {}, { class: "selectpicker" } %>
+            </div>
+          </div>
 
-      <div class="row">
-        <div class="col-sm-3 m-b-25">
-          <div class="input-group form-group">
-            <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
-            <div class="dtp-container">
-              <input type='text' class="form-control date-time-picker" placeholder="Clique aqui...">
+          <div class="row">
+            <div class="col-sm-3 m-b-25">
+              <div id="place-value-schedule" class="input-group form-group"></div>
+              <script id="in-template" type="text/x-handlebars-template">
+                <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
+                <div class="dtp-container">
+                  <%= k.text_field :date, class: "form-control input-mask", "data-mask" => "{{ value }}", placeholder: "{{ example }}" %>
+                </div>
+              </script>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-3">
+              <button id="button-save-chart" class="btn btn-success waves-effect">Salvar</button>
             </div>
           </div>
         </div>
       </div>
+    <% end %>
+  <% end %>
+<% end %>
 
-      <div class="row">
-        <div class="col-sm-3 m-b-25">
-          <div class="input-group form-group">
-            <span class="input-group-addon"><i class="zmdi zmdi-calendar"></i></span>
-            <div class="dtp-container">
-              <input type='text' class="form-control time-picker" placeholder="Clique aqui...">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-3">
-          <button class="btn btn-success waves-effect">Salvar</button>
+<script id="every-template" type="text/x-handlebars-template">
+  <div class="row">
+    <div class="col-sm-6 m-b-25">
+      <div class="form-group">
+        <div class="fg-line">
+          <input type="text" class="form-control" placeholder="Quantidade">
         </div>
       </div>
     </div>
+
+    <div class="col-sm-6 m-b-25">
+      <select class="selectpicker">
+        <option value="s">SEGUNDOS(S)</option>
+        <option value="m">MINUTO(S)</option>
+        <option value="h">HORA(S)</option>
+      </select>
+    </div>
   </div>
-<% end %>
+</script>

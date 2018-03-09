@@ -1,6 +1,6 @@
-class Chart
+class QueryString
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
 
-  embeds_one :service
+  embedded_in :service
 end

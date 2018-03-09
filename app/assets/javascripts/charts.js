@@ -1,7 +1,23 @@
 $( document ).ready(function() {
+
+  var applySelectpicker = function () {
+    $('.selectpicker').selectpicker({
+      width: 250
+    });
+  }
+
   $('#btn-add-params').click(function() {
-    var count= $("div[identify='row-param']").length + 1
-    $.ajax({ url: 'add_params' });
+    var source = $("#fields-params").html();
+    var template = Handlebars.compile(source);
+    var date = new Date();
+    var context = { id: date.getTime() };
+    var html = template(context);
+    $("#fields_params_url").append(html);
+
+    $("button[name='remove-params']").click(function () {
+      var row = $(this).attr("row");
+      $("#" + row).remove();
+    });
   });
 
   $('#btn-remove-params').click(function() {
@@ -14,8 +30,8 @@ $( document ).ready(function() {
       url: $('#create').val(),
       data: $('#new_chart').serialize(),
       success: function(data, textStatus, jqXHR) {
-        $('#id').val(data.id);
-        $('#button-update-search-service').hide();
+        $('.chart_id').val(data.id);
+        $('#button-save-params').show();
       },
       typeData: 'json'
     });
@@ -36,17 +52,43 @@ $( document ).ready(function() {
     e.preventDefault();
   });
 
-  $('#options_select_type_run_service').on('change', function(e) {
-    $.get({
-      url: $('#route_inputs_type_run_service').val(),
-      data: { type: $(this).val() },
-      success: function(data, textStatus, jqXHR) {
+  $('#button-update-schedule-service').on('click', function (e) {
+    $.post({
+      url: $('#route_update_schedule_service').val(),
+      data: $('#update_schedule_service').serialize(),
+      success: function (data, textStatus, jqXHR) {
         console.log(data);
+      },
+      typeData: 'json'
+    });
+
+    e.preventDefault();
+  });
+
+  $('#chart_service_schedule_type_run_service').on('change', function(e) {
+    if ($(this).val() == "in") {
+      var value = "00/00/0000";
+      var ex = "Ex.: 06/08/2018"
+
+      var source = $("#in-template").html();
+      var template = Handlebars.compile(source);
+      var html = template({ value: value, example: ex });
+      $("#place-value-schedule").html(html);
+      console.debug(html);
+    } else {
+      if ($(this).val() == "every") {
+        var source = $("#every-template").html();
+        var template = Handlebars.compile(source);
+        var html = template({ value: value, example: ex });
+        $("#place-value-schedule").html(html);
+        applySelectpicker();
       }
+    }
+
+    $('.input-mask').each(function (index) {
+      $(this).mask($(this).attr("data-mask"));
     });
   });
 
-  $('.selectpicker').selectpicker({
-    width: 250
-  });
+  applySelectpicker();
 });

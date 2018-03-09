@@ -28,4 +28,6 @@
 //= require moment.min.js
 //= require bootstrap-select.min.js
 //= require bootstrap-datetimepicker.min.js
+//= require handlebars.js
+//= require jquery.mask.min.js
 //= require_tree .
