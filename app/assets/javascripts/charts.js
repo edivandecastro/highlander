@@ -74,7 +74,6 @@ $( document ).ready(function() {
       var template = Handlebars.compile(source);
       var html = template({ value: value, example: ex });
       $("#place-value-schedule").html(html);
-      console.debug(html);
     } else {
       if ($(this).val() == "every") {
         var source = $("#every-template").html();
@@ -82,6 +81,23 @@ $( document ).ready(function() {
         var html = template({ value: value, example: ex });
         $("#place-value-schedule").html(html);
         applySelectpicker();
+      } else {
+        if ($(this).val() == "at") {
+          var value_time = "00:00:00";
+          var example_time = "Ex.: 14:30:00"
+          var value_date = "00/00/0000";
+          var example_date = "Ex.: 06/08/2018"
+
+          var source = $("#at-template").html();
+          var template = Handlebars.compile(source);
+          var html = template({
+            value_time: value_time,
+            example_time: example_time,
+            value_date: value_date,
+            example_date: example_date
+          });
+          $("#place-value-schedule").html(html);
+        }
       }
     }
 
