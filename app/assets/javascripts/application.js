@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require vue
+//= require vue-the-mask
+//= require vue-select
+//= require axios.min
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks

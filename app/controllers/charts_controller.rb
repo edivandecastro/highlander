@@ -26,12 +26,11 @@ class ChartsController < ApplicationController
   end
 
   def create
-    binding.pry
-    @chart = Chart.new(chart_params)
-    @chart.save
+    # @chart = Chart.new(chart_params)
+    # @chart.save
 
     respond_to do |format|
-      format.json { render json: { id: @chart.id.to_s, message: "Sucesso!" } }
+      format.json { render json: { id: "@chart.id.to_s", message: "Sucesso!" } }
     end
   end
 
